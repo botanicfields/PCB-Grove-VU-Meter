@@ -68,7 +68,8 @@ VU Meters into the Grove of M5
 
 ### 出荷時の調整の環境
 - Windows11
-- USB DAC: Sound Blaster Digital Music Premium HD(SB1240)
+- USB DAC: Sound Blaster Digital Music Premium HD(SB1240) [製品情報](https://jp.creative.com/p/sound-blaster/sound-blaster-digital-music-premium-hd)  
+※安定動作のためには、ドライバーダウンロードから Windows10 64bit用ドライバーの適用が有効な様です。
 - YouTube Music: Soft Hearts LLC Audio Test Tones 2021: Audio Test Tone 20k-20Hz -3dBFS
 - VUメーターが-3VUを示す様に調整
 
