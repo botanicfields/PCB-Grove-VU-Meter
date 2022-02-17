@@ -2,7 +2,7 @@
 VU Meters into the Grove of M5
 
 # オーディオレベルメーター用Grove(M5)接続基板
-ステレオオーディオ信号をレベルメーター用のアナログ電圧信号に変換するプリント基板です。アナログ信号2本とM5Stack用の5V電源をGroveコネクタから出力します。M5StackのLCDにVUメーターのように表示するサンプルプログラムを用意しています。
+　ステレオオーディオ信号を、レベルメーター用のアナログ電圧信号に変換するプリント基板です。アナログ信号2本とM5Stack用の5V電源を、Groveコネクタから出力します。M5StackのLCDにVUメーターのように表示するサンプルプログラムを用意しています。
 
 [内容物]  
 <img src="./image/pcbfront.jpg" width=300>
@@ -11,23 +11,33 @@ VU Meters into the Grove of M5
 
 委託販売（スイッチサイエンス）:  [オーディオレベルメーター用Grove(M5)接続基板](https://www.switch-science.com/catalog/xxxx/)
 
+## 安全上の注意事項
+- 基板上のレギュレータ(U3)が触れないぐらい発熱しているなど異常の場合、躊躇なくDCプラグを抜いてください。その上で原因を取り除いてください。
+- Groveへの5V出力は、必要な場合以外は、ジャンパピンJP3で切り離して(OFF)ください。特に電源が3.3Vの装置を接続すると焼損などの事故の原因となります。
+- 本基板からの5VとM5Stack側からの5Vが同時に供給されると、僅かな電圧差から大電流が流れ、素子の発熱による火傷や、M5Stackの故障の原因になります。
+- M5Stackでは、USB-C以外の5V電源供給は推奨されていません。本基板の機能を含め、M5Stackへの直接の5V供給は自己責任とされています。
+
 ## 特徴
-- オーディオ信号を整流し対数圧縮する専用LSI(BA6138)を使用しています。
+- オーディオ信号を整流し対数圧縮する専用LSI(ROHM BA6138)を使用しています。
 - 基板上の半固定抵抗でフルスケールを調整できます。
-- M5StackのGPIOに接続するためのケーブルを添付しています。
-- M5Stackへ5V電源を供給できます。
+- M5Stackの標準ボトムのピンソケットに接続するためのケーブルを添付しています。
+- M5Stackへ5V電源を供給でき、スタンドアロン動作ができます。
 - 左右2系統のRCAピンジャックが各々2個(In, Out)あり、RCAケーブルを中継できます。
 
-※本基板は測定器ではありません。PCオーディオなどのお手軽なオーディオ環境で見た目を楽しむための小物（ガジェット、ウィジェット、アクセサリ）です。サンプルプログラムの目盛も全くの飾りです。  
-※使用したBA6138は入力抵抗も2kΩ程度と低く、音質への影響は小さくないものと思われます。
+## 注意事項
+- 本基板は測定器ではありません。PCオーディオなどの手軽なオーディオ環境で見た目を楽しむための小物（ガジェット、ウィジェット、アクセサリ）です。サンプルプログラムの目盛も全くの飾りです。  
+- BA6138は入力抵抗も2kΩ程度と低く、音質への影響は小さくないものと思われます。
 
-## 安全上の注意事項
-- M5StackへのM-BUS直接の5V電源供給は推奨されておらず自己責任とされています。 M5Stack側の5Vと本基板からの5Vが競合すると、僅かな電圧差から大電流が流れ、素子の発熱による火傷や、M5Stackの故障の原因になります。
-- 基板上のレギュレータ(U3)が触れないぐらい発熱したなど異常の場合、躊躇なくDCプラグを抜いてください。その上で原因を取り除いてください。
-- 基板上のジャンパピンJP3により、Groveコネクタへの5V供給のON/OFFを適切に切り替えてください。JP3の切替は、DCプラグを抜いて実施ください。出荷時はOFFです。
-- M5Stackへのプログラムの書き込みやシリアルでのモニタリングにはUSB-Cを接続する必要があります。この場合、本基板からの5V供給を止めて(OFF)から、DCプラグを差し込んでください。
-- 本基板から5Vを供給(ON)する場合は、USB-Cケーブルを取り外し、M5Stackを電源OFFとしてから、DCプラグを差し込んでください。バッテリ動作中のM5Stackは、電源/リセットボタンを2回押すことで電源OFFにできます。
-- Groveへの5V出力は、必要な場合以外はジャンパピンJP3で切り離して(OFF)ください。特に電源が3.3Vの装置を接続すると、焼損などの致命的な事故の原因となります。
+## Groveコネクタへの5V電源供給のON/OFF
+　本基板のジャンパピンJP3により、Groveコネクタへの5V供給のON/OFFを設定します。JP3の切替は、DCプラグを抜いて実施ください。出荷時はOFFです。
+
+| JP3 | Grove 5Vピン| M5Stackの電源 | 用途 |
+|:-:|:- |:- |:- |
+| OFF | 5V電源供給なし | USB-C、またはバッテリから供給(*1) | プログラム書き込み、シリアルモニターの利用など |
+| ON  | 5V電源供給あり | 本基板から供給(*2) | M5Stackをスタンドアロンで使用など |
+
+(*1) JP3をOFFに設定してから、本基板のDCプラグを差し込んでください。  
+(*2) JP3をONに設定する際は、USB-Cケーブルを取り外し、M5Stackを電源OFFとしてから、本基板のDCプラグを差し込んでください。バッテリ動作中のM5Stackは、電源/リセットボタンを2回押すことで電源OFFにできます。
 
 [USB-C接続あり]  
 <img src="./image/powerusb.jpg" width=300>
@@ -64,14 +74,14 @@ VU Meters into the Grove of M5
 |5V |5V |
 |GND|GND|
 
-- 基板上の半固定抵抗は、ご利用の環境で再調整をお願いします。調整には小型のプラスドライバが必要です。
+- 基板上の半固定抵抗は、ご使用の環境で再調整ください。調整には小型のプラスドライバが必要です。
 
 ### 出荷時の調整の環境
 - Windows11
 - USB DAC: Sound Blaster Digital Music Premium HD(SB1240) [製品情報](https://jp.creative.com/p/sound-blaster/sound-blaster-digital-music-premium-hd)  
-※安定動作のためには、ドライバーダウンロードから Windows10 64bit用ドライバーの適用が有効な様です。
-- YouTube Music: Soft Hearts LLC Audio Test Tones 2021: Audio Test Tone 20k-20Hz -3dBFS
-- VUメーターが-3VUを示す様に調整
+※安定動作のためには、Windows10 64bit用ドライバーの適用が有効な様です。[ドライバーダウンロード](https://jp.creative.com/support/downloads/download.asp?MainCategory=1091&nRegionFK=&nCountryFK=&nLanguageFK=&sOSName=&region=2&Product_Name=Sound+Blaster+Digital+Music+Premium+HD&Product_ID=19829&modelnumber=&driverlang=1041&OS=52&drivertype=0)
+- YouTube Music: Audiolab 2014: Audio Test Tones: [1kHz 0dB](https://music.youtube.com/watch?v=_XMpb9BjGgE&feature=share)
+- VUメーターが-5VUを示す様に調整（一般音源のメーターの振れが適当になる位置）
 
 [入力信号-3dB(L/R)に対する出力(L/R)の例]  
 <img src="./image/wave1kHz.png" width=300>
