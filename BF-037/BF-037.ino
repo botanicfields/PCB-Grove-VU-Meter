@@ -45,8 +45,6 @@ void setup()
   M5.begin(!lcd_enable, !sd_enable, serial_enable, i2c_enable);
 
   // analog to digital converter
-  adc_gpio_init(ADC_UNIT_1, ADC_CHANNEL_7);                    // ADC1 Channel 7 = GPIO35
-  adc_gpio_init(ADC_UNIT_1, ADC_CHANNEL_0);                    // ADC1 Channel 0 = GPIO36
   adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11);  // attenuation 11dB
   adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11);  // attenuation 11dB
   adc1_config_width(ADC_WIDTH_BIT_12);                         // width 12bit
