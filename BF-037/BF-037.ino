@@ -2,7 +2,6 @@
 // BF-037 VU meters on M5Stack
 
 #include <M5Stack.h>
-#include "esp_adc_cal.h"   // for esp_adc_cal_characteristics_t
 #include "BF_M5StackVuMeter.h"
 
 // for control loop
@@ -33,9 +32,6 @@ ch_select_enum ch_select(stereo);
 
 bool double_needle(true);
 
-// for analog to degital converter
-esp_adc_cal_characteristics_t adc_chars;
-
 void setup()
 {
   const bool lcd_enable(true);
@@ -45,22 +41,8 @@ void setup()
   M5.begin(!lcd_enable, !sd_enable, serial_enable, i2c_enable);
 
   // analog to digital converter
-  adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11);  // attenuation 11dB
-  adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11);  // attenuation 11dB
-  adc1_config_width(ADC_WIDTH_BIT_12);                         // width 12bit
-
-  //Characterize ADC at particular ATTEN
-  const int default_vref(1100);
-  esp_adc_cal_value_t cal_value = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, default_vref, &adc_chars);
-
-  //Check type of calibration value used to characterize ADC
-  String msg = "[AdcWaveInit] cal_value = ";
-  switch (cal_value) {
-  case ESP_ADC_CAL_VAL_EFUSE_VREF: msg += "eFuse Vref"; break;
-  case ESP_ADC_CAL_VAL_EFUSE_TP:   msg += "Two Point";  break;
-  default:                         msg += "Default";    break;
-  }
-  Serial.println(msg);
+  analogReadResolution(12);
+  analogSetAttenuation(ADC_11db);
 
   // lcd & meter
   lcd_init();
@@ -126,8 +108,8 @@ void loop()
   }
 
   // read ADC
-  int adc_7 = esp_adc_cal_raw_to_voltage(adc1_get_raw(ADC1_CHANNEL_7), &adc_chars);
-  int adc_0 = esp_adc_cal_raw_to_voltage(adc1_get_raw(ADC1_CHANNEL_0), &adc_chars);
+  int adc_7 = analogReadMilliVolts(35);
+  int adc_0 = analogReadMilliVolts(36);
 
   // compensation of ESP32 ADC
   adc_7 = (adc_7 - offset) * vu_0 / (vu_0 - offset);

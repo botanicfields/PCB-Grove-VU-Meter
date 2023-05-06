@@ -18,7 +18,8 @@ const int color_darkred(0xc000);      // 192,   0,   0
 
 void lcd_init()
 {
-  lcd.init();
+//  lcd.init();
+  lcd.begin();
   lcd.setRotation(1);
   lcd.setBrightness(64);
   lcd.clearDisplay();
@@ -37,7 +38,7 @@ void lcd_clear()
 void make_panel_vu()
 {
   // panel color
-  color_background  = 0xc408;  // 192, 128,  64
+  color_background  = 0xc50c;  // 192, 160,  96
   canvas.setPaletteColor(palette1, color_background);
 
   // clear sprite
@@ -137,7 +138,7 @@ void make_panel_vu()
 void make_panel_mc()
 {
   // panel color
-  color_background  = 0x0218;  //   0,  64, 192
+  color_background = 0x0518;  //   0, 160, 192
   canvas.setPaletteColor(palette1, color_background);
 
   // clear sprite
@@ -227,11 +228,11 @@ void show_meter(int location_x, int location_y, const char* left_right, int leve
 
   // create canvas
   canvas.setColorDepth(2);
+  canvas.createSprite(320, 120);
   canvas.setPaletteColor(palette0, color_transparent);
   canvas.setPaletteColor(palette1, color_background);
   canvas.setPaletteColor(palette2, color_almostblack);
   canvas.setPaletteColor(palette3, color_darkred);
-  canvas.createSprite(320, 120);
 
   // set background of VU-meter
   panel.pushSprite(0, 0);

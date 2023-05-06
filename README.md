@@ -4,14 +4,14 @@ VU Meters into the Grove of M5
 # オーディオレベルメーター用Grove(M5)接続基板
 　ステレオオーディオ信号を、レベルメーター用のアナログ電圧信号に変換するプリント基板です。アナログ信号2本とM5Stack用の5V電源を、Groveコネクタから出力します。M5StackのLCDにVUメーターのように表示するサンプルプログラムを用意しています。
 
-### サンプルプログラムのコンパイル環境について
-(2023/5/1) BF-037.inoは、以下の環境でコンパイルできました。
+### サンプルプログラムの動作不良について
+(2023/5/6) BF-037.inoは、以下の環境でコンパイルできました。しかしばがら、ADCによるオーディオ信号の取り込みが安定せず、使用に耐えない状況です。
 - Arduino IDE 2.1.0
 - Boards Manager:  
-M5Stack by M5Stack official 2.0.6
+M5Stack by M5Stack official 2.0.7
 - Library:  
 M5Stack by M5Stack 0.4.3  
-M5GFX 0.0.20 ※ColorDepth=2を使用するため旧版が必要です。最新版への対応は目途がまだ立っておりません。
+M5GFX 0.1.6
 
 [内容物]  
 <img src="./image/pcbfront.jpg" width=300>
